@@ -1,0 +1,85 @@
+{
+  "Resources": {
+    "ProjectTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "TableName": "AWP.Project",
+        "ProvisionedThroughPut": {
+          "ReadCapacityUnits": 1,
+          "WriteCapacityUnits": 1
+        },
+        "KeySchema": [
+          {
+            "AttributeName": "ProjectId",
+            "KeyType": "HASH"
+          }
+        ],
+        "AtributeDefinitions": [
+          {
+            "AttributeName": "ProjectID",
+            "AttributeType": "S"
+          }
+        ]
+      }
+    },
+    "WorkplanTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "TableName": "AWP.Workplan",
+        "ProvisionedThroughPut": {
+          "ReadCapacityUnits": 1,
+          "WriteCapacityUnits": 1
+        },
+        "KeySchema": [
+          {
+            "AttributeName": "WorkplanID",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "ProjectId",
+            "KeyType": "RANGE"
+          }
+        ],
+        "AtributeDefinitions": [
+          {
+            "AttributeName": "WorkplanId",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "ProjectID",
+            "AttributeType": "S"
+          }
+        ]
+      }
+    },
+    "AcitivityTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "ProvisionedThroughPut": {
+          "ReadCapacityUnits": 1,
+          "WriteCapacityUnits": 1
+        },
+        "KeySchema": [
+          {
+            "AttributeName": "ActivityId",
+            "KeyType": "HASH"
+          },
+          {
+            "AttributeName": "WorkplanId",
+            "KeyType": "RANGE"
+          }
+        ],
+        "AtributeDefinitions": [
+          {
+            "AttributeName": "ActivityId",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "WorkplanId",
+            "AttributeType": "S"
+          }
+        ]
+      }
+    }
+  }
+}

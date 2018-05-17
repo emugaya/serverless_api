@@ -1,0 +1,172 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Metadata": {
+        "AWS::CloudFormation::Designer": {
+            "4fbd8ab2-8795-424a-a917-6a233c0e8c5e": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 140,
+                    "y": 20
+                },
+                "z": 0,
+                "embeds": []
+            },
+            "5f27f7aa-d311-4174-afa3-3ec8773b0c22": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 220,
+                    "y": 20
+                },
+                "z": 0,
+                "embeds": []
+            },
+            "22bc5760-d2eb-4094-a9e8-115396f49819": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 310,
+                    "y": 20
+                },
+                "z": 0,
+                "embeds": []
+            }
+        }
+    },
+    "Parameters": {
+        "ReadCapacityUnits": {
+            "Description": "Provisioned read throughput",
+            "Type": "Number",
+            "Default": "1",
+            "MinValue": "1",
+            "MaxValue": "10000",
+            "ConstraintDescription": "must be between 1 and 10000"
+        },
+        "WriteCapacityUnits": {
+            "Description": "Provisioned write throughput",
+            "Type": "Number",
+            "Default": "1",
+            "MinValue": "1",
+            "MaxValue": "10000",
+            "ConstraintDescription": "must be between 1 and 10000"
+        }
+    },
+    "Resources": {
+        "ProjectsTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+                "TableName": "AWP.Projects",
+                "AttributeDefinitions": [
+                    {
+                        "AttributeName": "ProjectId",
+                        "AttributeType": "S"
+                    }
+                ],
+                "KeySchema": [
+                    {
+                        "AttributeName": "ProjectId",
+                        "KeyType": "HASH"
+                    }
+                ],
+                "ProvisionedThroughput": {
+                    "ReadCapacityUnits": {
+                        "Ref": "ReadCapacityUnits"
+                    },
+                    "WriteCapacityUnits": {
+                        "Ref": "WriteCapacityUnits"
+                    }
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "4fbd8ab2-8795-424a-a917-6a233c0e8c5e"
+                }
+            }
+        },
+        "WrokplansTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+                "TableName":"AWP.Workplans",
+                "AttributeDefinitions": [
+                    {
+                        "AttributeName": "WorkplanId",
+                        "AttributeType": "S"
+                    },
+                    {
+                        "AttributeName": "ProjectId",
+                        "AttributeType": "S"
+                    }
+                ],
+                "KeySchema": [
+                    {
+                        "AttributeName": "WorkplanId",
+                        "KeyType": "HASH"
+                    },
+                    {
+                        "AttributeName": "ProjectId",
+                        "KeyType": "RANGE"
+                    }
+                ],
+                "ProvisionedThroughput": {
+                    "ReadCapacityUnits": {
+                        "Ref": "ReadCapacityUnits"
+                    },
+                    "WriteCapacityUnits": {
+                        "Ref": "WriteCapacityUnits"
+                    }
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "5f27f7aa-d311-4174-afa3-3ec8773b0c22"
+                }
+            }
+        },
+        "ActivitiesTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+                "TableName": "AWP.Activities",
+                "AttributeDefinitions": [
+                    {
+                        "AttributeName": "ActivityId",
+                        "AttributeType": "S"
+                    },
+                    {
+                        "AttributeName": "WorkplanId",
+                        "AttributeType": "S"
+                    }
+                ],
+                "KeySchema": [
+                    {
+                        "AttributeName": "ActivityId",
+                        "KeyType": "HASH"
+                    },
+                    {
+                        "AttributeName": "WorkplanId",
+                        "KeyType": "RANGE"
+                    }
+                ],
+                "ProvisionedThroughput": {
+                    "ReadCapacityUnits": {
+                        "Ref": "ReadCapacityUnits"
+                    },
+                    "WriteCapacityUnits": {
+                        "Ref": "WriteCapacityUnits"
+                    }
+                }
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "22bc5760-d2eb-4094-a9e8-115396f49819"
+                }
+            }
+        }
+    }
+}
